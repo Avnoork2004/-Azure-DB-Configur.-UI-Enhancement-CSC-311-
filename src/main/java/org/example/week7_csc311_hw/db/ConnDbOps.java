@@ -141,5 +141,55 @@ public class ConnDbOps {
             e.printStackTrace();
         }
     }
+
+
+    // edited code below
+
+    //method created to edit the user
+    public void editUser(int id, String name, String email, String phone, String address, String password) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE users SET name = ?, email = ?, phone = ?, address = ?, password = ? WHERE id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, phone);
+            preparedStatement.setString(4, address);
+            preparedStatement.setString(5, password);
+            preparedStatement.setInt(6, id);
+
+            int row = preparedStatement.executeUpdate();
+
+            if (row > 0) {
+                System.out.println("User data updated successfully.");
+            }
+
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //method created to delete the user
+    public void deleteUser(int id) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "DELETE FROM users WHERE id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            int row = preparedStatement.executeUpdate();
+
+            if (row > 0) {
+                System.out.println("User deleted successfully.");
+            }
+
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
 }

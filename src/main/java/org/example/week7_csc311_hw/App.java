@@ -48,6 +48,13 @@ public class App extends Application {
             System.out.println("| To display all users,   press 'a' |");
             System.out.println("| To insert to the DB,    press 'i' |");
             System.out.println("| To query by name,       press 'q' |");
+
+            //new code I wrote
+
+            //to edit the user
+            System.out.println("| To edit a user,         press 'u' |");
+            //to delete the user
+            System.out.println("| To delete a user,       press 'd' |");
             System.out.println("| To exit,                press 'e' |");
             System.out.println("===================================");
             System.out.print("Enter your choice: ");
@@ -83,6 +90,34 @@ public class App extends Application {
                     String queryName = scan.next();
                     cdbop.queryUserByName(queryName); //Your queryUserByName method
                     break;
+
+                //new code just wrote
+                //method to edit the user
+                case 'u':
+                    System.out.print("Enter the ID of the user to edit: ");
+                    int editId = scan.nextInt();
+                    System.out.print("Enter New Name: ");
+                    String newName = scan.next();
+                    System.out.print("Enter New Email: ");
+                    String newEmail = scan.next();
+                    System.out.print("Enter New Phone: ");
+                    String newPhone = scan.next();
+                    System.out.print("Enter New Address: ");
+                    String newAddress = scan.next();
+                    System.out.print("Enter New Password: ");
+                    String newPassword = scan.next();
+                    cdbop.editUser(editId, newName, newEmail, newPhone, newAddress, newPassword); // Edit user details
+                    break;
+
+                    //method to delete the user
+                case 'd':
+                    System.out.print("Enter the ID of the user to delete: ");
+                    int deleteId = scan.nextInt();
+                    cdbop.deleteUser(deleteId); // Delete user from the ID
+                    break;
+
+
+
                 case 'e':
                     System.out.println("Exiting...");
                     break;
