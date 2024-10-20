@@ -4,12 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import org.example.week7_csc311_hw.db.ConnDbOps;
@@ -30,6 +33,20 @@ public class DB_GUI_Controller implements Initializable {
 
             );
 
+    //new code
+    @FXML
+    private Button addBtn;
+
+    @FXML
+    private Button clearbtn;
+
+    @FXML
+    private Button deletebtn;
+
+    @FXML
+    private Button editbtn;
+
+
 
     @FXML
     TextField first_name, last_name, department, major, course;
@@ -44,8 +61,14 @@ public class DB_GUI_Controller implements Initializable {
     ImageView img_view;
 
 
+
+
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         cdbop = new ConnDbOps(); // Initialize database operations
         tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         tv_fn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -54,12 +77,37 @@ public class DB_GUI_Controller implements Initializable {
         tv_major.setCellValueFactory(new PropertyValueFactory<>("major"));
         tv_course.setCellValueFactory(new PropertyValueFactory<>("course")); // Set cell value for course
 
+        // keyboard shortcuts
+        tv.setOnKeyPressed(this::handleKeyPress);
 
         tv.setItems(data);
 
         /*
         loadData(); // Load data from database
          */
+    }
+
+//event handler for when keys are pressed
+    private void handleKeyPress(KeyEvent event) {
+        // key combinations
+        if (event.isControlDown()) {
+            if (event.getCode() == KeyCode.A) { // Ctrl + A for Add
+                addNewRecord();
+                event.consume(); // Prevent further handling
+            } else if (event.getCode() == KeyCode.C) { // Ctrl + C for Clear
+                clearForm();
+                event.consume(); // Prevent further handling
+            } else if (event.getCode() == KeyCode.E) { // Ctrl + E for Edit
+                editRecord();
+                event.consume(); // Prevent further handling
+            } else if (event.getCode() == KeyCode.D) { // Ctrl + D for Delete
+                deleteRecord();
+                event.consume(); // Prevent further handling
+            }
+        } else if (event.getCode() == KeyCode.F) { // Ctrl + F for Open File
+            showImage();
+            event.consume(); // Prevent further handling
+        }
     }
 
     /*
@@ -111,7 +159,7 @@ public class DB_GUI_Controller implements Initializable {
             Person p2 = new Person(c + 1, first_name.getText(), last_name.getText(), department.getText(), major.getText());
             data.set(c, p2); // Update the person in the list
             tv.refresh(); // Refresh the table view
-            clearForm(); // Optionally clear the form after editing
+            clearForm(); //  clear the form after editing
         }
     }
 
