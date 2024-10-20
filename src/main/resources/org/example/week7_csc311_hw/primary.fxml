@@ -12,12 +12,12 @@
    <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="Database">
+          <Menu fx:id="openDatabase" mnemonicParsing="false" text="Database">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleAddUser" text="Add User" />
-              <MenuItem mnemonicParsing="false" onAction="#handleEditUser" text="Edit User" />
-              <MenuItem mnemonicParsing="false" onAction="#handleDeleteUser" text="Delete User" />
-                <MenuItem mnemonicParsing="false" onAction="#handleListAllUsers" text="List All Users" />
+              <MenuItem fx:id="addUserMenuItem" mnemonicParsing="false" onAction="#handleAddUser" text="Add User" />
+              <MenuItem fx:id="editUserMenuItem" mnemonicParsing="false" onAction="#handleEditUser" text="Edit User" />
+              <MenuItem fx:id="deleteUserMenuItem" mnemonicParsing="false" onAction="#handleDeleteUser" text="Delete User" />
+                <MenuItem fx:id="listAllUsersMenuItem" mnemonicParsing="false" onAction="#handleListAllUsers" text="List All Users" />
             </items>
           </Menu>
         </menus>

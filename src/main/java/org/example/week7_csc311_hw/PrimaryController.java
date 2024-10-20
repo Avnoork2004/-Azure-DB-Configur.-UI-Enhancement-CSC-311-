@@ -7,21 +7,61 @@ import java.io.IOException;
 //new imports 2
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyCombination;
 import org.example.week7_csc311_hw.db.ConnDbOps;
 import java.util.Optional;
+
+//new imports 3
+import javafx.scene.control.MenuItem;
+
+
 
 
 public class PrimaryController {
 
-    //new code 2
-    //gui for the menubar and menuitems
-
     private ConnDbOps cdbop;
+
+    //new code 3
+    // GUI menu items
+
+    @FXML
+    private MenuItem addUserMenuItem;
+    @FXML
+    private MenuItem editUserMenuItem;
+    @FXML
+    private MenuItem deleteUserMenuItem;
+    @FXML
+    private MenuItem listAllUsersMenuItem;
+
+
+
+
 
     public PrimaryController() {
         cdbop = new ConnDbOps(); // Initialize DB operations class
     }
 
+
+    //new code 3
+    @FXML
+    private void initialize() {
+        // action handlers for menu items
+        addUserMenuItem.setOnAction(event -> handleAddUser());
+        editUserMenuItem.setOnAction(event -> handleEditUser());
+        deleteUserMenuItem.setOnAction(event -> handleDeleteUser());
+        listAllUsersMenuItem.setOnAction(event -> handleListAllUsers());
+
+        // keyboard shortcuts for menu actions
+        addUserMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+A"));
+        editUserMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+E"));
+        deleteUserMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+D"));
+        listAllUsersMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+L"));
+    }
+
+
+
+    //new code 2
+    //gui for the menubar and menuitems
     @FXML
     private void handleAddUser() {
         // dialog to get input from user
