@@ -72,7 +72,7 @@ public class App extends Application {
 
             switch (input) {
                 case 'g':
-                     launch(args); //GUI
+                    launch(args); //GUI
                     break;
 
                 case 'c':
@@ -119,7 +119,7 @@ public class App extends Application {
                     cdbop.editUser(editId, newName, newEmail, newPhone, newAddress, newPassword); // Edit user details
                     break;
 
-                    //method to delete the user
+                //method to delete the user
                 case 'd':
                     System.out.print("Enter the ID of the user to delete: ");
                     int deleteId = scan.nextInt();
@@ -139,7 +139,7 @@ public class App extends Application {
 
         scan.close();
 
-       
+
     }
 
 

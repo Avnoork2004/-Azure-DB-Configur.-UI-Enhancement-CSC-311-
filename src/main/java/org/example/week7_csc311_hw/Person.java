@@ -8,9 +8,9 @@ public class Person {
     private String lastName;
     private String dept;
     private String major;
+    private String course; // New field for course
 
-    public Person() {
-    }
+
 
 
     public Person(Integer id, String firstName, String lastName, String dept, String major) {
@@ -19,6 +19,7 @@ public class Person {
         this.lastName = lastName;
         this.major = major;
         this.dept = dept;
+        this.course = course; // Initialize course
     }
 
 
@@ -65,6 +66,9 @@ public class Person {
     public void setDept(String dept) {
         this.dept = dept;
     }
+
+    public String getCourse() { return course; } // New getter for course
+    public void setCourse(String course) { this.course = course; }
 
 
 }

@@ -7,9 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.example.week7_csc311_hw.db.ConnDbOps;
 
 
 public class DB_Application extends Application {
+
+    private static ConnDbOps cdbop;
 
     public static void main(String[] args) {
         launch();

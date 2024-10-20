@@ -4,7 +4,11 @@
  */
 package org.example.week7_csc311_hw.db;
 
+import org.example.week7_csc311_hw.Person;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,7 +19,7 @@ public class ConnDbOps {
     final String DB_URL = "jdbc:mysql://csc311kaurserver.mysql.database.azure.com/DBname";
     final String USERNAME = "csc311admin";
     final String PASSWORD = "Ka219719770.";
-    
+
     public  boolean connectToDatabase() {
         boolean hasRegistredUsers = false;
 
@@ -191,5 +195,55 @@ public class ConnDbOps {
             e.printStackTrace();
         }
     }
-    
+
+/*
+    // new code
+    public class ConnDbOps {
+        private Connection connection;
+
+        public ConnDbOps() {
+            try {
+                // Database connection setup
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "username", "password");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    public void insertUser(Person person) {
+        String sql = "INSERT INTO persons (first_name, last_name, department, major, course) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, person.getFirstName());
+            pstmt.setString(2, person.getLastName());
+            pstmt.setString(3, person.getDept());
+            pstmt.setString(4, person.getMajor());
+            pstmt.setString(5, person.getCourse());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Person> getAllUsers() {
+        List<Person> users = new ArrayList<>();
+        String sql = "SELECT * FROM persons";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                users.add(new Person(
+                        rs.getInt("id"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("department"),
+                        rs.getString("major"),
+                        rs.getString("course") // Include course in retrieval
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+ */
 }

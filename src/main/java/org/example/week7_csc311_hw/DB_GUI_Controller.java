@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import org.example.week7_csc311_hw.db.ConnDbOps;
 
 import java.io.File;
 import java.net.URL;
@@ -19,6 +20,8 @@ import java.util.ResourceBundle;
 
 
 public class DB_GUI_Controller implements Initializable {
+
+    private ConnDbOps cdbop; // Instance of database operations
 
     private final ObservableList<Person> data =
             FXCollections.observableArrayList(
@@ -29,13 +32,13 @@ public class DB_GUI_Controller implements Initializable {
 
 
     @FXML
-    TextField first_name, last_name, department, major;
+    TextField first_name, last_name, department, major, course;
     @FXML
     private TableView<Person> tv;
     @FXML
     private TableColumn<Person, Integer> tv_id;
     @FXML
-    private TableColumn<Person, String> tv_fn, tv_ln, tv_dept, tv_major;
+    private TableColumn<Person, String> tv_fn, tv_ln, tv_dept, tv_major, tv_course;
 
     @FXML
     ImageView img_view;
@@ -43,17 +46,29 @@ public class DB_GUI_Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        cdbop = new ConnDbOps(); // Initialize database operations
         tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         tv_fn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         tv_ln.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         tv_dept.setCellValueFactory(new PropertyValueFactory<>("dept"));
         tv_major.setCellValueFactory(new PropertyValueFactory<>("major"));
+        tv_course.setCellValueFactory(new PropertyValueFactory<>("course")); // Set cell value for course
 
 
         tv.setItems(data);
+
+        /*
+        loadData(); // Load data from database
+         */
     }
 
-
+    /*
+    private void loadData() {
+        data.clear(); // Clear existing data
+        data.addAll(cdbop.getAllUsers()); // Add all users from the database
+        tv.setItems(data); // Update TableView
+    }
+*/
     @FXML
     protected void addNewRecord() {
 
@@ -64,7 +79,14 @@ public class DB_GUI_Controller implements Initializable {
                 last_name.getText(),
                 department.getText(),
                 major.getText()
+                /*course.getText() // Include course text*/
         ));
+        /*
+        //new
+        cdbop.insertUser(newPerson); // Insert user into database
+        loadData(); // Reload data from database
+        clearForm(); // Optionally clear the form after adding
+         */
     }
 
     @FXML
@@ -83,23 +105,23 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     protected void editRecord() {
-        Person p= tv.getSelectionModel().getSelectedItem();
-        int c=data.indexOf(p);
-        Person p2= new Person();
-        p2.setId(c+1);
-        p2.setFirstName(first_name.getText());
-        p2.setLastName(last_name.getText());
-        p2.setDept(department.getText());
-        p2.setMajor(major.getText());
-        data.remove(c);
-        data.add(c,p2);
-        tv.getSelectionModel().select(c);
+        Person p = tv.getSelectionModel().getSelectedItem();
+        if (p != null) {
+            int c = data.indexOf(p);
+            Person p2 = new Person(c + 1, first_name.getText(), last_name.getText(), department.getText(), major.getText());
+            data.set(c, p2); // Update the person in the list
+            tv.refresh(); // Refresh the table view
+            clearForm(); // Optionally clear the form after editing
+        }
     }
 
     @FXML
     protected void deleteRecord() {
-        Person p= tv.getSelectionModel().getSelectedItem();
-        data.remove(p);
+        Person p = tv.getSelectionModel().getSelectedItem();
+        if (p != null) {
+            data.remove(p);
+            clearForm(); // Clear the form after deleting
+        }
     }
 
 
