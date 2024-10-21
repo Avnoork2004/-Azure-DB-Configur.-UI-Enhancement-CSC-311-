@@ -87,7 +87,7 @@ public class DB_GUI_Controller implements Initializable {
          */
     }
 
-//event handler for when keys are pressed
+    //event handler for when keys are pressed
     private void handleKeyPress(KeyEvent event) {
         // key combinations
         if (event.isControlDown()) {

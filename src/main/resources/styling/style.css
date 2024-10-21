@@ -1,0 +1,100 @@
+.nav_btn {
+    -fx-background-color:#444;
+    -fx-cursor:hand;
+    -fx-font-family:"Arial";
+    -fx-font-size:14px;
+    -fx-text-alignment: center;
+    -fx-text-fill:#fff;
+    -fx-alignment:CENTER;
+    -fx-background-radius:10;
+    -fx-pref-width:150px;
+    -fx-pref-height:40px;
+}
+
+.left_pane {
+    -fx-background-color:#f88;
+    -fx-pref-width:150px;
+    -fx-pref-height:600px;
+}
+
+.bottom_pane {
+    -fx-background-color:#f88;
+}
+.profile_pic{
+    -fx-stroke: #dedddc;
+    -fx-stroke-width: 2;
+}
+
+/* new code that doesn't run*/
+/* Light theme */
+
+.root {
+    -fx-background-color: #ffffff; /* Main background color */
+}
+
+.nav_btn {
+    -fx-background-color: #444; /* Button background color */
+    -fx-cursor: hand;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-text-alignment: center;
+    -fx-text-fill: #fff; /* Button text color */
+    -fx-alignment: CENTER;
+    -fx-background-radius: 10;
+    -fx-pref-width: 150px;
+    -fx-pref-height: 40px;
+}
+
+.left_pane {
+    -fx-background-color: #f88; /* Left pane background color */
+    -fx-pref-width: 150px;
+    -fx-pref-height: 600px;
+}
+
+.bottom_pane {
+    -fx-background-color: #f88; /* Bottom pane background color */
+}
+
+.profile_pic {
+    -fx-stroke: #dedddc;
+    -fx-stroke-width: 2;
+}
+
+/* Dark theme */
+.dark-theme .root {
+    -fx-background-color: #333333; /* Main background color */
+}
+
+.dark-theme .nav_btn {
+    -fx-background-color: #666666; /* Button background color */
+    -fx-text-fill: #ffffff; /* Button text color */
+}
+
+.dark-theme .left_pane {
+    -fx-background-color: #555555; /* Left pane background color */
+}
+
+.dark-theme .bottom_pane {
+    -fx-background-color: #444444; /* Bottom pane background color */
+}
+
+.dark-theme .text-field {
+    -fx-background-color: #444444; /* Text field background */
+    -fx-text-fill: #ffffff; /* Text field text color */
+    -fx-border-color: #ccc; /* Text field border color */
+}
+
+.dark-theme .text-field:focused {
+    -fx-border-color: #ffffff; /* Focused text field border color */
+}
+
+/* Additional styles for text fields */
+.text-field {
+    -fx-background-color: #ffffff; /* Light theme text field background */
+    -fx-text-fill: #000000; /* Light theme text field text color */
+    -fx-border-color: #ccc; /* Light theme text field border color */
+}
+
+.text-field:focused {
+    -fx-border-color: #444; /* Focused text field border color */
+}
