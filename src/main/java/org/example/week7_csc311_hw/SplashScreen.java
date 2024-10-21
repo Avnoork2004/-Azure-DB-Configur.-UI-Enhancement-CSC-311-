@@ -7,6 +7,7 @@ import javafx.scene.control.ProgressIndicator;
 
 import java.io.IOException;
 
+// tried implementing the splashscreen but couldn't finish integrating
 public class SplashScreen {
 
     /*@FXML

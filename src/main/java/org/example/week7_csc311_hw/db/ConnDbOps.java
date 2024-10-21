@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.example.week7_csc311_hw.db;
 
 import org.example.week7_csc311_hw.Person;
@@ -20,24 +16,23 @@ public class ConnDbOps {
     final String USERNAME = "csc311admin";
     final String PASSWORD = "Ka219719770.";
 
-    public  boolean connectToDatabase() {
+    public boolean connectToDatabase() {
         boolean hasRegistredUsers = false;
-
 
         //Class.forName("com.mysql.jdbc.Driver");
         try {
-            //First, connect to MYSQL server and create the database if not created
+            // First, connect to MYSQL server and create the database if not created
             Connection conn = DriverManager.getConnection(MYSQL_SERVER_URL, USERNAME, PASSWORD);
             Statement statement = conn.createStatement();
             statement.executeUpdate("CREATE DATABASE IF NOT EXISTS DBname");
             statement.close();
             conn.close();
 
-            //Second, connect to the database and create the table "users" if cot created
+            // Second, connect to the database and create the table "users" if not created
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             statement = conn.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS users ("
-                    + "id INT( 10 ) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
+                    + "id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
                     + "name VARCHAR(200) NOT NULL,"
                     + "email VARCHAR(200) NOT NULL UNIQUE,"
                     + "phone VARCHAR(200),"
@@ -46,14 +41,14 @@ public class ConnDbOps {
                     + ")";
             statement.executeUpdate(sql);
 
-            //check if we have users in the table users
+            // Check if we have users in the table "users"
             statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM users");
 
             if (resultSet.next()) {
                 int numUsers = resultSet.getInt(1);
                 if (numUsers > 0) {
-                    hasRegistredUsers = true;
+                    hasRegistredUsers = true; // Set flag if there are registered users
                 }
             }
 
@@ -64,12 +59,10 @@ public class ConnDbOps {
             e.printStackTrace();
         }
 
-        return hasRegistredUsers;
+        return hasRegistredUsers; // Return the status of registered users
     }
 
-    public  void queryUserByName(String name) {
-
-
+    public void queryUserByName(String name) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             String sql = "SELECT * FROM users WHERE name = ?";
@@ -78,6 +71,7 @@ public class ConnDbOps {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            // Iterate through the result set and print user details
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String email = resultSet.getString("email");
@@ -89,14 +83,11 @@ public class ConnDbOps {
             preparedStatement.close();
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Handle SQL exceptions
         }
     }
 
-    public  void listAllUsers() {
-
-
-
+    public void listAllUsers() {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             String sql = "SELECT * FROM users ";
@@ -104,6 +95,7 @@ public class ConnDbOps {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            // Iterate through the result set and print details of all users
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -116,13 +108,11 @@ public class ConnDbOps {
             preparedStatement.close();
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Handle SQL exceptions
         }
     }
 
-    public  void insertUser(String name, String email, String phone, String address, String password) {
-
-
+    public void insertUser(String name, String email, String phone, String address, String password) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             String sql = "INSERT INTO users (name, email, phone, address, password) VALUES (?, ?, ?, ?, ?)";
@@ -142,14 +132,11 @@ public class ConnDbOps {
             preparedStatement.close();
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Handle SQL exceptions
         }
     }
 
-
-    // edited code below
-
-    //method created to edit the user
+    // Method created to edit the user
     public void editUser(int id, String name, String email, String phone, String address, String password) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -165,17 +152,17 @@ public class ConnDbOps {
             int row = preparedStatement.executeUpdate();
 
             if (row > 0) {
-                System.out.println("User data updated successfully.");
+                System.out.println("User data updated successfully."); // Confirmation of update
             }
 
             preparedStatement.close();
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Handle SQL exceptions
         }
     }
 
-    //method created to delete the user
+    // Method created to delete the user
     public void deleteUser(int id) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -186,17 +173,17 @@ public class ConnDbOps {
             int row = preparedStatement.executeUpdate();
 
             if (row > 0) {
-                System.out.println("User deleted successfully.");
+                System.out.println("User deleted successfully."); // Confirmation of deletion
             }
 
             preparedStatement.close();
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Handle SQL exceptions
         }
     }
 
-/*
+    /*
     // new code
     public class ConnDbOps {
         private Connection connection;
@@ -206,44 +193,45 @@ public class ConnDbOps {
                 // Database connection setup
                 connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "username", "password");
             } catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(); // Handle connection exceptions
             }
         }
 
-    public void insertUser(Person person) {
-        String sql = "INSERT INTO persons (first_name, last_name, department, major, course) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, person.getFirstName());
-            pstmt.setString(2, person.getLastName());
-            pstmt.setString(3, person.getDept());
-            pstmt.setString(4, person.getMajor());
-            pstmt.setString(5, person.getCourse());
-            pstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Person> getAllUsers() {
-        List<Person> users = new ArrayList<>();
-        String sql = "SELECT * FROM persons";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                users.add(new Person(
-                        rs.getInt("id"),
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("department"),
-                        rs.getString("major"),
-                        rs.getString("course") // Include course in retrieval
-                ));
+        // Method to insert a user from the Person model
+        public void insertUser(Person person) {
+            String sql = "INSERT INTO persons (first_name, last_name, department, major, course) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                pstmt.setString(1, person.getFirstName());
+                pstmt.setString(2, person.getLastName());
+                pstmt.setString(3, person.getDept());
+                pstmt.setString(4, person.getMajor());
+                pstmt.setString(5, person.getCourse());
+                pstmt.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace(); // Handle insertion exceptions
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return users;
-    }
 
- */
+        // Method to retrieve all users as Person objects
+        public List<Person> getAllUsers() {
+            List<Person> users = new ArrayList<>();
+            String sql = "SELECT * FROM persons";
+            try (PreparedStatement pstmt = connection.prepareStatement(sql);
+                 ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    users.add(new Person(
+                            rs.getInt("id"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getString("department"),
+                            rs.getString("major"),
+                            rs.getString("course") // Include course in retrieval
+                    ));
+                }
+            } catch (Exception e) {
+                e.printStackTrace(); // Handle retrieval exceptions
+            }
+            return users; // Return the list of users
+        }
+    */
 }

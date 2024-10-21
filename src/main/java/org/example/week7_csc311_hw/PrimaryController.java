@@ -16,7 +16,7 @@ import javafx.scene.control.MenuItem;
 
 
 
-
+// integrating the shell code database into gui form (everything is stored in the database)
 public class PrimaryController {
 
     private ConnDbOps cdbop;

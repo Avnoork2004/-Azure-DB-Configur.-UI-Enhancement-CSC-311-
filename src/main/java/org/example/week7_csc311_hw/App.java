@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.week7_csc311_hw.db.ConnDbOps;
 
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -40,39 +39,28 @@ public class App extends Application {
     }
     */
 
-
-
-
-
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("primary"), 640, 480); // Load the primary FXML
         stage.setScene(scene);
         //new code 2
         //title of the primary fxml
-        stage.setTitle("Database Management App");
-        stage.show();
+        stage.setTitle("Database Management App"); // Set the title of the application window
+        stage.show(); // Display the primary stage
     }
 
     static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        scene.setRoot(loadFXML(fxml)); // Change the scene to the specified FXML file
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-
-        return fxmlLoader.load();
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml")); // Load the FXML resource
+        return fxmlLoader.load(); // Return the loaded FXML root node
     }
 
-
-
-
-
-
-
     public static void main(String[] args) {
-        cdbop = new ConnDbOps();
-        Scanner scan = new Scanner(System.in);
+        cdbop = new ConnDbOps(); // Initialize the database operations object
+        Scanner scan = new Scanner(System.in); // Create a Scanner object for user input
 
         char input;
         do {
@@ -87,27 +75,28 @@ public class App extends Application {
             //new code I wrote
 
             //to edit the user
-            System.out.println("| To edit a user,         press 'u' |");
+            System.out.println("| To edit a user,         press 'u' |"); // Option to edit user details
             //to delete the user
-            System.out.println("| To delete a user,       press 'd' |");
+            System.out.println("| To delete a user,       press 'd' |"); // Option to delete a user
             System.out.println("| To exit,                press 'e' |");
             System.out.println("===================================");
             System.out.print("Enter your choice: ");
-            input = scan.next().charAt(0);
+            input = scan.next().charAt(0); // Read user input for menu selection
 
             switch (input) {
                 case 'g':
-                    launch(args); //GUI
+                    launch(args); // Launch the GUI
                     break;
 
                 case 'c':
-                    cdbop.connectToDatabase(); //Your existing method
+                    cdbop.connectToDatabase(); // Connect to the database using the existing method
                     break;
                 case 'a':
-                    cdbop.listAllUsers(); //all users in DB
+                    cdbop.listAllUsers(); // Display all users in the database
                     break;
 
                 case 'i':
+                    // Gather user input for inserting a new user
                     System.out.print("Enter Name: ");
                     String name = scan.next();
                     System.out.print("Enter Email: ");
@@ -118,18 +107,18 @@ public class App extends Application {
                     String address = scan.next();
                     System.out.print("Enter Password: ");
                     String password = scan.next();
-                    cdbop.insertUser(name, email, phone, address, password); //Your insertUser method
+                    cdbop.insertUser(name, email, phone, address, password); // Insert the new user into the database
                     break;
                 case 'q':
                     System.out.print("Enter the name to query: ");
                     String queryName = scan.next();
-                    cdbop.queryUserByName(queryName); //Your queryUserByName method
+                    cdbop.queryUserByName(queryName); // Query the database for a user by name
                     break;
 
                 //new code just wrote
                 //method to edit the user
                 case 'u':
-                    System.out.print("Enter the ID of the user to edit: ");
+                    System.out.print("Enter the ID of the user to edit: "); // Prompt for user ID to edit
                     int editId = scan.nextInt();
                     System.out.print("Enter New Name: ");
                     String newName = scan.next();
@@ -141,33 +130,25 @@ public class App extends Application {
                     String newAddress = scan.next();
                     System.out.print("Enter New Password: ");
                     String newPassword = scan.next();
-                    cdbop.editUser(editId, newName, newEmail, newPhone, newAddress, newPassword); // Edit user details
+                    cdbop.editUser(editId, newName, newEmail, newPhone, newAddress, newPassword); // Edit user details in the database
                     break;
 
                 //method to delete the user
                 case 'd':
-                    System.out.print("Enter the ID of the user to delete: ");
+                    System.out.print("Enter the ID of the user to delete: "); // Prompt for user ID to delete
                     int deleteId = scan.nextInt();
-                    cdbop.deleteUser(deleteId); // Delete user from the ID
+                    cdbop.deleteUser(deleteId); // Delete the user from the database using their ID
                     break;
-
-
 
                 case 'e':
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting..."); // Inform the user that the application is exiting
                     break;
                 default:
-                    System.out.println("Invalid option. Please try again.");
+                    System.out.println("Invalid option. Please try again."); // Handle invalid menu selection
             }
-            System.out.println(" ");
-        } while (input != 'e');
+            System.out.println(" "); // Print a blank line for better readability
+        } while (input != 'e'); // Continue the loop until the user decides to exit
 
-        scan.close();
-
-
+        scan.close(); // Close the Scanner to free up resources
     }
-
-
-
-
 }

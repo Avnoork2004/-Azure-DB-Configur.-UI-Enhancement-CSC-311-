@@ -9,13 +9,17 @@ import java.io.IOException;
 public class RegistrationController {
 
     @FXML
-    private TextField usernameField;
+    private TextField usernameField; // Field for user to input their username
     @FXML
-    private PasswordField passwordField;
+    private PasswordField passwordField; // Field for user to input their password securely
 
+    /**
+     * Switches the view to the login page.
+     *
+     * @throws IOException if there is an issue loading the login page.
+     */
     @FXML
     protected void switchToLogin() throws IOException {
         App.setRoot("login"); // Switch back to login page
     }
 }
-
