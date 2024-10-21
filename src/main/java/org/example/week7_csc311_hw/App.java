@@ -19,6 +19,31 @@ public class App extends Application {
     private static Scene scene;
     private static ConnDbOps cdbop;
 
+    /*
+    //Tried the splashscreen implementation
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        setRoot("splash_screen"); // initial scene to splash screen
+        primaryStage.setTitle("MediaVault");
+        primaryStage.show();
+    }
+
+    public static void setRoot(String fxml) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource(fxml + ".fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.setScene(scene);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+    */
+
+
+
+
+
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 640, 480);

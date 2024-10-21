@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.week7_csc311_hw.RegistrationController">
+   <children>
+      <TextField fx:id="usernameField" layoutX="246.0" layoutY="116.0" />
+      <PasswordField fx:id="passwordField" layoutX="246.0" layoutY="188.0" />
+      <Text layoutX="78.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="120.93671417236328" />
+      <Text layoutX="78.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password: " wrappingWidth="120.93671417236328" />
+   </children>
+</AnchorPane>
